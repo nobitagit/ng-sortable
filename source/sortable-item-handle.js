@@ -19,19 +19,6 @@
     $scope.type = 'handle';
   }]);
 
-  //Check if a node is parent to another node
-  function isParent(possibleParent, elem) {
-    if(!elem || elem.nodeName === 'HTML') {
-      return false;
-    }
-
-    if(elem.parentNode === possibleParent) {
-      return true;
-    }
-
-    return isParent(possibleParent, elem.parentNode);
-  }
-
   /**
    * Directive for sortable item handle.
    */
@@ -389,7 +376,7 @@
 
               if (targetScope.type === 'sortable') {//sortable scope.
                 if (targetScope.accept(scope, targetScope) &&
-                  !isParent(targetScope.element[0], targetElement[0])) {
+                    targetElement[0].parentNode !== targetScope.element[0]) {
                   //moving over sortable bucket. not over item.
                   if (!isPlaceHolderPresent(targetElement) && !targetScope.options.clone) {
                     targetElement[0].appendChild(placeHolder[0]);
