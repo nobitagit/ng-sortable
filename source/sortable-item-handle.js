@@ -60,10 +60,14 @@
             isPlaceHolderPresent,//is placeholder present.
             isDisabled = false, // drag enabled
             escapeListen, // escape listen event
-            isLongTouch = false; //long touch disabled.
+            isLongTouch = false, //long touch disabled.
+            bodyOverflow; // the initial body CSS overflow value at runtime
 
           hasTouch = 'ontouchstart' in $window;
           isIOS = /iPad|iPhone|iPod/.test($window.navigator.userAgent) && !$window.MSStream;
+
+          // store the initial overflow value of the body tag
+          bodyOverflow = $document[0].body.style.overflow;
 
           if (sortableConfig.handleClass) {
             element.addClass(sortableConfig.handleClass);
@@ -550,6 +554,7 @@
            */
           longTouchStart = function(event) {
             longTouchTimer = $timeout(function() {
+              $document[0].body.style.overflow = 'hidden';
               dragListen(event);
             }, 500);
           };
@@ -558,6 +563,7 @@
            * cancel the long touch and its timer.
            */
           longTouchCancel = function() {
+            $document[0].body.style.overflow = bodyOverflow;
             $timeout.cancel(longTouchTimer);
           };
 

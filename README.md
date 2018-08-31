@@ -1,8 +1,27 @@
 
-ng-sortable
+ng-sortable (Procensus fork)
 ==============
 
 Angular Library for Drag and Drop, supports Sortable and Draggable. No JQuery UI used. Supports Touch devices.
+
+### How to use this fork
+
+1. `cd` to the root of this project and run `yarn link`
+2. `cd` to the Procensus project
+3. Run `npm link @procensus/ng-sortable`
+
+4. Tweak the code as you see fit
+5. run `npx grunt-cli build`
+
+6. After the app rebuilds you should see your change reflected
+
+If you don't want to link/unlink you can also do just step 4 and 5 and manually copy the generated
+`ng-sortable.js` (or whatever you changed) file and paste it in the appropriate folder inside the
+Procensus node_modules.
+
+If you have linked the package remember to unlink it once finished
+
+`yarn unlink @procensus/ng-sortable`
 
 #### Release:
 
@@ -90,7 +109,7 @@ e.g.
     .as-sortable-dragging{
        border: 1px dotted #000 !important;
     }
-          
+
 
 #### Callbacks:
 
@@ -109,15 +128,15 @@ Following callbacks are defined, and should be overridden to perform custom logi
 - callbacks.dragEnd = function({type: Object}) // triggered on drag end.
 
 ##### Parameters:
-    Object (event) - structure         
+    Object (event) - structure
              source:
                   index: original index before move.
                   itemScope: original item scope before move.
                   sortableScope: original sortable list scope.
              dest: index
                   index: index after move.
-                  sortableScope: destination sortable scope.  
-                  
+                  sortableScope: destination sortable scope.
+
 ##### Some Notable Fixes:
 
 - Touch is allowed on only one Item at a time. Tap is prevented on draggable item.
@@ -142,7 +161,7 @@ Or bower.json
   "dependencies": [..., "ng-sortable: "latest_version eg - "1.1.0" ", ...],
 }
 ```
-Or npm 
+Or npm
 ```
 npm install ng-sortable
 ```
@@ -181,25 +200,25 @@ Define your callbacks in the invoking controller.
         clone: true //optional param for clone feature.
         allowDuplicates: false //optional param allows duplicates to be dropped.
     };
-    
+
     $scope.dragControlListeners1 = {
             containment: '#board'//optional param.
             allowDuplicates: true //optional param allows duplicates to be dropped.
     };
-    
+
 That's all you have to do.
 
 ##### Restrict Moving between Columns:
 
 Define the accept callback. and the implementation is your choice.
-The itemHandleScope(dragged Item) and sortableScope(destination list) is exposed. 
+The itemHandleScope(dragged Item) and sortableScope(destination list) is exposed.
 Compare the scope Objects there like below., If you have to exactly restrict moving between columns.
 
     accept: function (sourceItemHandleScope, destSortableScope) {
       return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
     }
 
-If you want to restrict only to certain columns say you have 5 columns and you want 
+If you want to restrict only to certain columns say you have 5 columns and you want
 the drag to be allowed in only 3 columns, then you need to implement your custom logic there.,
 and that too becomes straight forward as you have your scope Objects in hand.
 
@@ -225,7 +244,7 @@ The move failure Impl here just reverts the moved item to its original location.
            * remove the item from destination Column.
            * insert the item again in original Column.
            */
-          moveFailure = function() {   
+          moveFailure = function() {
                eventObj.dest.sortableScope.removeItem(eventObj.dest.index);
                eventObj.source.itemScope.sortableScope.insertItem(eventObj.source.index, eventObj.source.itemScope.item);
           };
@@ -255,7 +274,7 @@ The Drag can be controlled at runtime and you can enable/disable it by setting t
 
 ##### Development Environment setup:
 
-Clone the master 
+Clone the master
     $ git clone https://github.com/a5hik/ng-sortable.git
 
 or Download from [Source Master](https://github.com/a5hik/ng-sortable/archive/master.zip)
@@ -282,7 +301,7 @@ Run the following commands from the project root directory.
 To access the local server, enter the following URL into your web browser:
 
     http://localhost:9009/demo/
-    
+
 ##### NG Modules Link:
 
 If you use this module you can give it a thumbs up at [http://ngmodules.org/modules/ng-sortable](http://ngmodules.org/modules/ng-sortable).
